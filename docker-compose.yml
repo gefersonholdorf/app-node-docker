@@ -1,0 +1,28 @@
+services:
+  backend:  
+    build: .
+    container_name: node-app
+    ports:
+      - 3000:3000
+    depends_on:
+      - mysql
+    networks:
+      - app-network
+  mysql:
+    image: mysql
+    container_name: db
+    ports:
+      - 3309:3306
+    volumes:
+      - data_mysql:/var/lib/mysql
+    networks:
+      - app-network
+    environment:
+      - MYSQL_ROOT_PASSWORD=senha123
+      - MYSQL_DATABASE=database
+
+volumes:
+  data_mysql:
+
+networks:
+  app-network:
